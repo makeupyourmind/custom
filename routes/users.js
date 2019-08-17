@@ -13,6 +13,6 @@ router.post('/verifyRegistration', UserController.verifyRegistration);
 
 router.get('/', verifyTokenAvailable, verifyRole(Roles.User), UserController.getAll);
 
-router.delete('/:id', verifyTokenAvailable, verifyRole(Roles.Admin), UserController.deleteById);
+router.delete('/:id', UserController.deleteById);
 
 export default router;

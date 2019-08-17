@@ -22,6 +22,8 @@ module.exports = (sequelize, DataTypes) => {
       as: 'verificationtoken',  
       foreignKey: 'UserId',
       foreignKeyConstraint: true,
+      onDelete: 'set null', 
+      hooks: true
     });
   };
   return User;
