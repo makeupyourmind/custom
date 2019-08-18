@@ -1,5 +1,5 @@
-const User = require('../models').User;
-const VerificationToken = require('../models').VerificationToken;
+import { User } from '../models';
+import { VerificationToken } from '../models';
 import crypto from 'crypto-random-string';
 import sendVerificationEmail from '../services/sendVerificationEmail';
 import bcrypt from 'bcrypt';
@@ -71,9 +71,20 @@ class UserController {
         }
     }
 
+    async getById(req, res){
+        try {
+            let response = await User.findAll({ include: [ {model :  VerificationToken, as: 'verificationtoken'} ], where : {id : req.params.id } });
+
+            res.status(200).json({response});
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    }
+
+
     async getAll(req, res){
         try {
-            let response = await User.findAll({});
+            let response = await User.findAll({ include: [ {model :  VerificationToken, as: 'verificationtoken'} ] });
 
             res.status(200).json({response});
         } catch (error) {

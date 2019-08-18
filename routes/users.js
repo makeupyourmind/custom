@@ -11,8 +11,10 @@ router.post('/signUp', UserController.singUp);
 
 router.post('/verifyRegistration', UserController.verifyRegistration);
 
-router.get('/', verifyTokenAvailable, verifyRole(Roles.User), UserController.getAll);
+router.get('/:id', UserController.getById);
 
-router.delete('/:id', UserController.deleteById);
+router.get('/', verifyTokenAvailable, verifyRole(Roles.Admin), UserController.getAll);
+
+router.delete('/:id', verifyTokenAvailable, verifyRole(Roles.Admin), UserController.deleteById);
 
 export default router;
